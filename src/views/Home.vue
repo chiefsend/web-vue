@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <p>Das ist ein Test</p>
+    <section class="portfolio-block cv">
+      <div class="container">
+        <div class="heading">
+          <h2>{{ this.$route.name }}</h2>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
-  name: 'Home',
-  components: {
-  }
+  name: 'Home'
 }
 </script>
