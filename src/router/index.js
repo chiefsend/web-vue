@@ -21,6 +21,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "Upload" */ '../views/Upload.vue')
   },
   {
+    path: '/download/:id',
+    name: 'Download',
+    component: () => import(/* webpackChunkName: "Download" */ '../views/Download.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "About" */ '../views/About.vue')
@@ -33,7 +38,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  //mode: 'history',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

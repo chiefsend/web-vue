@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-      <div class="container"><a class="navbar-brand logo" href="landing.html">ChiefSend</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+      <div class="container"><router-link class="navbar-brand logo" to="/">ChiefSend</router-link><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><router-link class="nav-link" to="/landing">Home</router-link></li>
+            <li class="nav-item"><router-link class="nav-link" to="/">Home</router-link></li>
             <li class="nav-item"><router-link class="nav-link" to="/public">Public</router-link></li>
             <li class="nav-item"><router-link class="btn btn-outline-light" role="button" to="/upload">Upload</router-link></li>
           </ul>
