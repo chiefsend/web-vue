@@ -6,8 +6,10 @@
           <h2>Upload</h2>
         </div>
         <form class="shadow-lg">
-          <div class="progress">
-            <div class="progress-bar bg-primary progress-bar-animated" aria-valuenow="69" aria-valuemin="0" aria-valuemax="100" style="width: 69%;">69%</div>
+          <div class="progress" v-if="uploadProgress > 0">
+            <div class="progress-bar bg-primary progress-bar-animated" v-bind:aria-valuenow="uploadProgress"
+              aria-valuemin="0" aria-valuemax="100" v-bind:style="'width: ' + uploadProgress + '%;'">
+              {{ uploadProgress }}%</div>
           </div>
           <div class="row">
             <div class="col">
@@ -55,8 +57,9 @@
           <div class="row">
             <div class="col">
               <div>
-                <button class="btn btn-outline-secondary" data-bs-toggle="collapse" aria-expanded="false" aria-controls="settings" data-bs-target="#settings" type="button">Additional Settings</button>
-                <div class="collapse" id="settings">
+                <!-- <button class="btn btn-outline-secondary" data-bs-toggle="collapse" aria-expanded="false" aria-controls="settings" data-bs-target="#settings" type="button">Additional Settings</button> -->
+                <button class="btn btn-outline-secondary" type="button" v-on:click="extraCollapsed = !extraCollapsed">Additional Settings</button>
+                <div class="collapse" v-bind:class="{ show: extraCollapsed }" id="settings">
                   <span>Emails</span><button class="btn btn-outline-primary btn-sm border rounded-circle" type="button" v-on:click="addEmail()"><i class="fa fa-plus"></i></button>
                   <ul class="list-group">
                     <li class="list-group-item" v-for="(email, index) in emails" v-bind:key="index">
@@ -90,12 +93,15 @@ export default {
       downloadLimit: "1",
       isPublic: false,
       password: "",
-      emails: [""]
+      emails: [""],
+      extraCollapsed: false,
+      uploadProgress: 0
     };
   },
   methods: {
     upload: function() {
       console.log("kekw");
+      this.uploadProgress++;
     },
     addEmail: function() {
       this.emails.push("");
