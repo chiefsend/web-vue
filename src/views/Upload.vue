@@ -62,8 +62,11 @@
               v-bind:disabled="uploadProgress != null"></div>
           </div>
           <div class="row">
-            <div class="col"><button class="btn btn-primary btn-lg d-block w-100" type="button" v-on:click="upload()"
-              v-bind:disabled="uploadProgress != null">Upload</button></div>
+            <div class="col">
+              <progress-button :progress="uploadProgress" />
+              <button class="btn btn-primary btn-lg d-block w-100" type="button" v-on:click="upload()"
+                v-bind:disabled="uploadProgress != null">Upload</button>
+              </div>
           </div>
           <div class="row">
             <div class="col">
@@ -118,9 +121,11 @@
 
 <script>
 import ax from "@/api"
+import ProgressButton from "@/components/ProgressButton.vue";
 
 export default {
   name: "Upload",
+  components: {ProgressButton},
   data() {
     return {
       uploadName: "",
