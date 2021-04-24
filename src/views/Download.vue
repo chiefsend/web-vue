@@ -4,6 +4,7 @@
       <div class="container">
         <div class="heading">
           <h2>Download</h2>
+          <h3></h3>
         </div>
         <div class="group">
           <ul class="list-group">
@@ -15,3 +16,29 @@
     </section>
   </main>
 </template>
+
+<script>
+import ax from "@/api"
+
+export default {
+  name: "Download",
+  data() {
+    let id = this.$route.params.id;
+    console.log(this.$route.params);
+    ax.get(`/share/${id}`, {}, {
+      auth: {
+        username: "",
+        password: ""
+      }
+    }).then(function (response) {
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    });
+
+    return {
+      id: id
+    }
+  }
+}
+</script>

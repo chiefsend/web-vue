@@ -7,32 +7,32 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home
   },
   {
     path: '/public',
-    name: 'Public',
+    name: 'public',
     component: () => import(/* webpackChunkName: "Public" */ '../views/Public.vue')
   },
   {
     path: '/upload',
-    name: 'Upload',
+    name: 'upload',
     component: () => import(/* webpackChunkName: "Upload" */ '../views/Upload.vue')
   },
   {
     path: '/download/:id',
-    name: 'Download',
+    name: 'download',
     component: () => import(/* webpackChunkName: "Download" */ '../views/Download.vue')
   },
   {
     path: '/about',
-    name: 'About',
+    name: 'about',
     component: () => import(/* webpackChunkName: "About" */ '../views/About.vue')
   },
   {
     path: '/privacy',
-    name: 'Privacy',
+    name: 'privacy',
     component: () => import(/* webpackChunkName: "Privacy" */ '../views/Privacy.vue')
   }
 ]
