@@ -4,7 +4,7 @@
       <div class="container">
         <div class="heading">
           <h2>Download</h2>
-          <h3></h3>
+          <h3 v-if="name">{{ name }}</h3>
         </div>
         <div class="card special-skill-item border-0" v-if="loading">
           <div class="card-body">
@@ -21,7 +21,7 @@
                   <input class="form-control item" type="password" id="password" placeholder="Password"
                     v-model="password"></div>
                 <button class="btn btn-primary btn-lg d-block w-100" type="button"
-                  v-on:click="loadShare(password)">Reload page</button>
+                  v-on:click="showShare()">Reload page</button>
               </div>
             </div>
           </div>
@@ -30,12 +30,13 @@
           <ul class="list-group">
             <li class="list-group-item" v-for="file in files" v-bind:key="file.id">
               <span>{{ file.filename }}</span>
-              <a class="btn btn-outline-primary float-end" type="button">
+              <a class="btn btn-outline-primary float-end" type="button"
+                v-on:click="download(`/share/${id}/attachment/${file.id}`)">
                 <i class="fa fa-download"></i>
               </a>
             </li>
           </ul>
-          <button class="btn btn-primary d-block w-100" type="button">Download All</button>
+          <button class="btn btn-primary d-block w-100" type="button">Download all</button>
         </div>
       </div>
     </section>
@@ -43,7 +44,7 @@
 </template>
 
 <script>
-import ax from "@/api"
+import ax from "@/api";
 
 export default {
   name: "Download",
@@ -51,30 +52,42 @@ export default {
     return {
       loading: true,
       error: null,
+      name: null,
       password: ''
     }
   },
   created() {
-    this.loadShare('');
+    this.showShare();
   },
   methods: {
-    loadShare: function() {
+    showShare: function() {
       let vueThis = this;
 
       let id = this.$route.params.id;
+      this.id = id;
       this.loading = true;
       this.error = null;
       ax.get(`/share/${id}`, {}, {
         auth: {
           username: id,
-          password: vueThis.password
+          password: this.password
         }
       }).then(function (response) {
         vueThis.loading = false;
+        vueThis.name = response.data.name;
         vueThis.files = response.data.files;
       }).catch(function (error) {
         vueThis.loading = false;
         vueThis.error = error;
+      });
+    },
+    download: function(url) {
+      ax.get(url, { responseType: 'blob' }, {
+        auth: {
+          username: this.id,
+          password: this.password
+        }}).then(function (response) {
+          console.log(response);
       });
     }
   }

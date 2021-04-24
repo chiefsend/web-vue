@@ -6,12 +6,6 @@
           <h2>Upload</h2>
         </div>
         <form class="shadow-lg" v-if="!uploaded">
-          <div class="progress" v-if="uploadProgress != null">
-            <div class="progress-bar bg-primary progress-bar-animated" v-bind:aria-valuenow="uploadProgress"
-              aria-valuemin="0" aria-valuemax="100" v-bind:style="'width: ' + uploadProgress + '%;'"
-              v-bind:disabled="uploadProgress != null">
-              {{ uploadProgress }}%</div>
-          </div>
           <div class="row">
             <div class="col">
               <div class="mb-3"><label class="form-label" for="name">Share Name</label>
@@ -63,10 +57,8 @@
           </div>
           <div class="row">
             <div class="col">
-              <progress-button :progress="uploadProgress" />
-              <button class="btn btn-primary btn-lg d-block w-100" type="button" v-on:click="upload()"
-                v-bind:disabled="uploadProgress != null">Upload</button>
-              </div>
+              <progress-button :progress="uploadProgress" v-on:click="upload()" />
+            </div>
           </div>
           <div class="row">
             <div class="col">

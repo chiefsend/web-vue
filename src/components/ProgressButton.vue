@@ -1,28 +1,21 @@
 <template>
-    <button class="btn btn-lg d-block w-100"
-        :class="{ 'btn-primary': !moving, 'btn-outline-primary': moving, 'progress-button': moving}"
-        @click="moving=true"
-        :disabled="moving"
-        :style="{ 'background-position': 100-progress + '% 100%' }"
-    >
-        <span v-if="!moving">
-            Upload
-        </span>
-        <span v-else>
-            {{ progress }}%
-        </span>
-    </button>
+  <button class="btn btn-lg d-block w-100" type="button" v-on:click="$emit('click')"
+    v-bind:class="{ 'btn-primary': progress == null, 'btn-outline-primary': progress != null, 'progress-button': progress != null}"
+    v-bind:disabled="progress != null"
+    v-bind:style="{ 'background-position': 100-progress + '% 100%' }">
+    <span v-if="progress == null">
+      Upload
+    </span>
+    <span v-else>
+      {{ progress }}%
+    </span>
+  </button>
 </template>
 
 <script>
 export default {
 	name: "Progress-Button",
-    data() {
-        return {
-            moving: false
-        }
-    },
-    props: ['progress']
+  props: ['progress']
 };
 </script>
 
