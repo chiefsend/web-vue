@@ -45,6 +45,7 @@
 
 <script>
 import ax from "@/api";
+import fileDownload from 'js-file-download';
 
 export default {
   name: "Download",
@@ -67,7 +68,7 @@ export default {
       this.id = id;
       this.loading = true;
       this.error = null;
-      ax.get(`/share/${id}`, {}, {
+      ax.get(`/share/${id}`, {
         auth: {
           username: id,
           password: this.password
@@ -82,12 +83,15 @@ export default {
       });
     },
     download: function(url) {
+      console.log(url);
       ax.get(url, { responseType: 'blob' }, {
         auth: {
           username: this.id,
           password: this.password
-        }}).then(function (response) {
-          console.log(response);
+        }}).then(res => {
+          let fileName = res.headers["content-disposition"].split("filename=")[1];
+          console.log(res.headers);
+          fileDownload(res.data, fileName);
       });
     }
   }
