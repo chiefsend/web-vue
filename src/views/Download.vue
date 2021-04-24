@@ -19,7 +19,7 @@
               <div class="col text-center">
                 <div class="mb-3">
                   <input class="form-control item" type="password" id="password" placeholder="Password"
-                    v-model="password"></div>
+                    v-model="password" v-on:keyup.enter="showShare()"></div>
                 <button class="btn btn-primary btn-lg d-block w-100" type="button"
                   v-on:click="showShare()">Reload page</button>
               </div>
