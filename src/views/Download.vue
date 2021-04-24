@@ -36,7 +36,8 @@
               </a>
             </li>
           </ul>
-          <button class="btn btn-primary d-block w-100" type="button">Download all</button>
+          <button class="btn btn-primary d-block w-100" type="button"
+            v-on:click="download(`/share/${id}/zip`)">Download all</button>
         </div>
       </div>
     </section>
@@ -55,7 +56,7 @@ export default {
       error: null,
       name: null,
       password: ''
-    }
+    };
   },
   created() {
     this.showShare();
@@ -83,14 +84,13 @@ export default {
       });
     },
     download: function(url) {
-      console.log(url);
-      ax.get(url, { responseType: 'blob' }, {
-        auth: {
-          username: this.id,
-          password: this.password
-        }}).then(res => {
+      ax.get(url, {
+          responseType: 'blob',
+          auth: {
+            username: this.id,
+            password: this.password
+          }}).then(res => {
           let fileName = res.headers["content-disposition"].split("filename=")[1];
-          console.log(res.headers);
           fileDownload(res.data, fileName);
       });
     }

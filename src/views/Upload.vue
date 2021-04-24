@@ -10,7 +10,7 @@
             <div class="col">
               <div class="mb-3"><label class="form-label" for="name">Share Name</label>
                 <input class="form-control item" type="text" id="name" placeholder="Name (optional)"
-                  v-model="uploadName" v-bind:disabled="uploadProgress != null"></div>
+                  v-model="uploadName" v-bind:disabled="uploadProgress != null" v-on:keyup.enter="upload()"></div>
             </div>
           </div>
           <div class="row">
@@ -53,7 +53,7 @@
                 <label class="form-check-label" for="isPublic">Public</label></div>
             </div>
             <div class="col"><input class="form-control" type="password" placeholder="Password ..." v-model="password"
-              v-bind:disabled="uploadProgress != null"></div>
+              v-bind:disabled="uploadProgress != null" v-on:keyup.enter="upload()"></div>
           </div>
           <div class="row">
             <div class="col">
@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import ax from "@/api"
+import ax from "@/api";
 import ProgressButton from "@/components/ProgressButton.vue";
 
 export default {

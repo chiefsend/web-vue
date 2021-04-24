@@ -10,7 +10,11 @@
     </section>
     <section class="portfolio-block call-to-action border-bottom" style="padding-top: 0 px;">
       <div class="container">
-        <div class="input-group"><span class="input-group-text">Already have a Share?</span><input class="form-control" type="text"><button class="btn btn-primary" type="button">Open Share</button></div>
+        <div class="input-group">
+          <span class="input-group-text">Already have a Share?</span>
+          <input class="form-control" type="text" v-model="alreadyID" v-on:keyup.enter="openShare()">
+          <button class="btn btn-primary" type="button" v-on:click="openShare()">Open Share</button>
+        </div>
       </div>
     </section>
     <section class="portfolio-block skills">
@@ -71,7 +75,19 @@
 </template>
 
 <script>
+import router from '@/router';
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  data() {
+    return {
+      alreadyID: ''
+    }
+  },
+  methods: {
+    openShare: function() {
+      router.push({ name: 'download', params: { id: this.alreadyID }});
+    }
+  }
 }
 </script>

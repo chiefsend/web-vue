@@ -16,13 +16,9 @@
     </main>
     <footer class="page-footer" style="padding: 10px 0px 20px;">
       <div class="container">
-        <!-- TODO fix these with router links -->
         <div class="links"><router-link v-bind:to="{name: 'about'}">About</router-link><router-link v-bind:to="{name: 'privacy'}">Privacy</router-link></div>
         <div class="social-icons"><a href="https://github.com/chiefsend"><i class="icon ion-social-github"></i></a></div>
       </div>
     </footer>
   </div>
 </template>
-
-<style>
-</style>

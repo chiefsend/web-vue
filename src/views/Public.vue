@@ -6,36 +6,18 @@
           <h2>Public shares</h2>
         </div>
         <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <div class="project-card-no-image">
-              <h3>Anydex</h3>
-              <h4>Expires: 02/02/2022 - 11:11 PM<br>Download Limit: 123</h4>
-              <a class="btn btn-outline-primary btn-sm" role="button" href="download.html">Open</a>
-              <div class="tags"><span class="text-muted">3 MB</span></div>
+          <div class="card special-skill-item border-0" v-if="loading">
+            <div class="card-body">
+              Loading...
             </div>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4" v-else v-for="share in shares" v-bind:key="share.id">
             <div class="project-card-no-image">
-              <h3>Golf Peak</h3>
-              <h4>Expires: 02/02/2022 - 11:11 PM<br></h4>
-              <a class="btn btn-outline-primary btn-sm" role="button" href="download.html">Open</a>
-              <div class="tags"><span class="text-muted">3 MB</span></div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="project-card-no-image">
-              <h3>IDB Folien</h3>
-              <h4>Expires: 02/02/2022 - 11:11 PM<br>Download Limit: 123<br></h4>
-              <a class="btn btn-outline-primary btn-sm" role="button" href="download.html">Open</a>
-              <div class="tags"><span class="text-muted">3 MB</span></div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="project-card-no-image">
-              <h3>TopKEK</h3>
-              <h4><br></h4>
-              <a class="btn btn-outline-primary btn-sm" role="button" href="download.html">Open</a>
-              <div class="tags"><span class="text-muted">3 MB</span></div>
+              <h3>{{ share.name }}</h3>
+              <h4><template v-if="share.expires"> Expires: {{ share.expires }}</template>
+                <br><template v-if="share.download_limit">Download Limit: {{ share.download_limit }}</template></h4>
+              <router-link class="btn btn-outline-primary btn-sm" role="button" v-bind:to="{ name: 'download', 'params': { 'id': share.id } }">Open</router-link>
+              <div class="tags"><span class="text-muted">{{ humanFileSize(getTotalSize(share)) }}</span></div>
             </div>
           </div>
         </div>
@@ -43,3 +25,32 @@
     </section>
   </main>
 </template>
+
+<script>
+import ax from "@/api";
+
+export default {
+  name: "Download",
+  data() {
+    return {
+      loading: true
+    };
+  },
+  created() {
+    let vueThis = this;
+    ax.get('shares').then(function (response) {
+      vueThis.loading = false;
+      vueThis.shares = response.data;
+    });
+  },
+  methods: {
+    getTotalSize(share) {
+      let totalBytes = 0;
+      share.files.forEach(file => {
+        totalBytes += file.filesize;
+      });
+      return totalBytes;
+    }
+  }
+}
+</script>
