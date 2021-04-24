@@ -16,7 +16,7 @@
             <div class="col">
               <div class="mb-3"><label class="form-label" for="name">Share Name</label>
                 <input class="form-control item" type="text" id="name" placeholder="Name (optional)"
-                  v-bind:disabled="uploadProgress != null"></div>
+                  v-model="uploadName" v-bind:disabled="uploadProgress != null"></div>
             </div>
           </div>
           <div class="row">
